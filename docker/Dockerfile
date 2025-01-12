@@ -14,4 +14,4 @@ RUN apt-get update && \
 USER haproxy
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["haproxy", "-f", "/tmp/haproxy.cfg"]
+CMD ["haproxy", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
