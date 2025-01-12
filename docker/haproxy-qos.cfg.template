@@ -1,0 +1,30 @@
+
+backend mes-backend
+    mode http
+    # stick-table : size : nombre de ports de flux distincts observés (ici : 2 ports destination observés, à savoir 8000 et 8001)
+    stick-table type integer size 2 expire 1s store http_req_rate(1s)
+    # on groupe les requêtes par port d'écoute sur les fronts, pour décompter de manière distincte les taux de requêtes traitées en sortie par port d'écoute des fronts
+    http-request track-sc0 dst_port
+    # serveur cible de ce HAProxy
+    server server1 ${MES_DST_HOST}:${MES_DST_PORT}
+ 
+frontend mes-fast
+    mode http
+    # Les requêtes reçues sur le port 8000 sont traitées de manière prioritaire
+    bind 127.0.0.1:8000
+    # on interdit les requêtes prioritaires si elles dépassent le budget max vers le serveur cible de ce HAProxy (${MES_MAX_RATE} requêtes par seconde)
+    http-request return status 503 content-type "text/plain" lf-string "503 Service Unavailable\n\nThe service is temporarily unavailable. Please try again later." if { dst_port,table_http_req_rate(mes-backend) gt ${MES_MAX_RATE} }
+    default_backend mes-backend
+ 
+frontend mes-slow
+    mode http
+    # Les requêtes reçues sur le port 8001 sont traitées de manière non prioritaire
+    bind 127.0.0.1:8001
+    # on calcule le budget restant pour les requêtes non prioritaires en soustrayant au budget total de sortie (${MES_MAX_RATE} requêtes par seconde) les taux de requêtes prioritaires et non prioritaires qui sont acheminées vers le serveur cible de ce HAproxy
+    http-request set-var(req.back_slow_rate) 'int(8001),table_http_req_rate(mes-backend),neg()'
+    http-request set-var(req.back_fast_rate) 'int(8000),table_http_req_rate(mes-backend),neg()'
+    http-request set-var(req.back_max_minus_slow_minus_fast) 'int(${MES_MAX_RATE}),add(req.back_fast_rate),add(req.back_slow_rate)'
+    # on bloque les requêtes non prioritaires si le budget restant global vers le serveur est vide
+    http-request return status 503 content-type "text/plain" lf-string "503 Service Unavailable\n\nThe service is temporarily unavailable. Please try again later." if { var(req.back_max_minus_slow_minus_fast) -m int lt 0 }
+    default_backend mes-backend
+
