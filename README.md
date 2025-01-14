@@ -1,12 +1,15 @@
+
 ### haproxy-mes
 PoC de QoS sur les requêtes web
 
 Toutes les commandes à lancer pour tester ce PoC nécessitent d'être dans le répertoire haproxy-mes/docker et d'utiliser la commande `make`.
 
-# Récupération de l'image Docker de ce PoC
-- L'image OCI est disponible sur DockerHub : [https://hub.docker.com/repository/docker/fenyoa/mes-haproxy](https://hub.docker.com/repository/docker/fenyoa/mes-haproxy)
-- Les sources de ce PoC sont disponibles sur GitHub : [https://hub.docker.com/repository/docker/fenyoa/mes-haproxy/general](https://github.com/AlexandreFenyo/haproxy-mes/tree/main)
+Les sources de ce PoC sont disponibles sur GitHub : [https://hub.docker.com/repository/docker/fenyoa/mes-haproxy/general](https://github.com/AlexandreFenyo/haproxy-mes/tree/main)
 
+### Récupération de l'image Docker de ce PoC
+L'image OCI est disponible sur DockerHub : [https://hub.docker.com/repository/docker/fenyoa/mes-haproxy](https://hub.docker.com/repository/docker/fenyoa/mes-haproxy)
+
+Récupération de l'image :
 ```
 fenyo@mac docker % docker pull fenyoa/mes-haproxy:latest
 latest: Pulling from fenyoa/mes-haproxy
@@ -15,7 +18,7 @@ Status: Image is up to date for fenyoa/mes-haproxy:latest
 docker.io/fenyoa/mes-haproxy:latest
 ```
 
-# Lancer un test de ce PoC
+### Lancer un test de ce PoC
 ## Lancer un serveur web local
 Ce serveur local écoute sur le port TCP/8002 et représente le serveur backend vers lequel haproxy renvoie ses requêtes
 ```
