@@ -1,12 +1,12 @@
 
-### haproxy-mes
+# haproxy-mes
 PoC de QoS sur les requêtes web
 
 La plupart des commandes à lancer pour tester ce PoC nécessitent d'être dans le répertoire haproxy-mes/docker et d'utiliser la commande `make`.
 
 Les sources de ce PoC sont disponibles sur GitHub : [https://github.com/AlexandreFenyo/haproxy-mes](https://github.com/AlexandreFenyo/haproxy-mes)
 
-### Récupération de l'image Docker de ce PoC
+## Récupération de l'image Docker de ce PoC
 Si vous disposez d'une architecture matérielle ARM64 (Linux sur ARM, Mac avec processeur Apple Silicon), vous pouvez directement récupérer l'image OCI qui est disponible sur DockerHub : [https://hub.docker.com/repository/docker/fenyoa/mes-haproxy](https://hub.docker.com/repository/docker/fenyoa/mes-haproxy)
 
 Récupération de l'image :
@@ -50,8 +50,8 @@ View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux
 ```
 
 
-### Lancer un test de ce PoC
-## Lancer un serveur web local
+## Lancer un test de ce PoC
+### Lancer un serveur web local
 Ce serveur local écoute sur le port TCP/8002 et représente le serveur backend vers lequel haproxy renvoie ses requêtes
 ```
 fenyo@mac docker % make run-web    
@@ -60,7 +60,7 @@ docker ps -a --filter "name=mes-web" --format "{{.ID}}" | xargs docker rm
 docker run -d --name mes-web -p 8080:8080 jmalloc/echo-server:latest
 169ffc41838a81b3bc5c5a96409ac57163357933b93d6da1a6015856ee9ea9ba
 ```
-## Lancer haproxy écoutant sur les ports TCP/8000 et TCP/8001
+### Lancer haproxy écoutant sur les ports TCP/8000 et TCP/8001
 Ce serveur haproxy renvoie les requêtes vers le serveur web local en privilégiant les requêtes arrivant sur le port TCP/8000 par rapport à celles arrivant sur le port TCP/8001. Il limite le taux maximum de requêtes à 20 par seconde.
 ```
 fenyo@mac docker % make run
@@ -119,7 +119,7 @@ frontend mes-slow
 [NOTICE]   (1) : Loading success.
 ```
 
-## Lancer une inondation de requêtes sur le port 8000
+### Lancer une inondation de requêtes sur le port 8000
 Cette commande fait une boucle sans fin pour interroger le serveur local au travers de haproxy, sur le port 8000.
 
 ```
@@ -138,7 +138,7 @@ GET / HTTP/1.1
 [...]
 ```
 
-## Lancer une inondation de requêtes sur le port 8001
+### Lancer une inondation de requêtes sur le port 8001
 Cette commande fait une boucle sans fin pour interroger le serveur local au travers de haproxy, sur le port 8001.
 
 ```
@@ -157,7 +157,7 @@ GET / HTTP/1.1
 [...]
 ```
 
-## Observer les statistiques haproxy
+### Observer les statistiques haproxy
 Lorsque les deux ports 8000 et 8001 sont sollicités simultanément, on constate que les requêtes privilégiées pour remplir le taux autorisé de 20 requêtes par seconde sont celles émises vers le port 8000.
 
 ```
