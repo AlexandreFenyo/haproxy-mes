@@ -1,4 +1,4 @@
-# haproxy-mes
+e# haproxy-mes
 QoS sur les requêtes web
 
 Toutes les commandes à lancer pour tester ce PoC nécessitent d'être dans le répertoire haproxy-mes/docker et d'utiliser la commande `make`
@@ -14,7 +14,7 @@ docker run -d --name mes-web -p 8080:8080 jmalloc/echo-server:latest
 169ffc41838a81b3bc5c5a96409ac57163357933b93d6da1a6015856ee9ea9ba
 ```
 ## Lancer haproxy écoutant sur les ports TCP/8000 et TCP/8001
-Ce serveur haproxy renvoie les requêtes vers le serveur web local en privilégiant les requêtes arrivant sur le port TCP/8000 par rapport à celles arrivant sur le port TCP/8001. Il limite le taux maximum de requêts à 20 par seconde.
+Ce serveur haproxy renvoie les requêtes vers le serveur web local en privilégiant les requêtes arrivant sur le port TCP/8000 par rapport à celles arrivant sur le port TCP/8001. Il limite le taux maximum de requêtes à 20 par seconde.
 ```
 fenyo@mac docker % make run
 docker ps -a --filter "name=mes-haproxy" --format "{{.ID}}" | xargs docker stop
