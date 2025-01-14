@@ -7,7 +7,7 @@ La plupart des commandes à lancer pour tester ce PoC nécessitent d'être dans 
 Les sources de ce PoC sont disponibles sur GitHub : [https://github.com/AlexandreFenyo/haproxy-mes](https://github.com/AlexandreFenyo/haproxy-mes)
 
 ### Récupération de l'image Docker de ce PoC
-Si vous disposez d'une infrastructure ARM64 (Linux, Mac avec processeur Apple Silicon), vous pouvez directement récupérer l'image OCI qui est disponible sur DockerHub : [https://hub.docker.com/repository/docker/fenyoa/mes-haproxy](https://hub.docker.com/repository/docker/fenyoa/mes-haproxy)
+Si vous disposez d'une architecture matérielle ARM64 (Linux sur ARM, Mac avec processeur Apple Silicon), vous pouvez directement récupérer l'image OCI qui est disponible sur DockerHub : [https://hub.docker.com/repository/docker/fenyoa/mes-haproxy](https://hub.docker.com/repository/docker/fenyoa/mes-haproxy)
 
 Récupération de l'image :
 ```
