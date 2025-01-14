@@ -7,7 +7,7 @@ Toutes les commandes à lancer pour tester ce PoC nécessitent d'être dans le r
 Les sources de ce PoC sont disponibles sur GitHub : [https://hub.docker.com/repository/docker/fenyoa/mes-haproxy](https://github.com/AlexandreFenyo/haproxy-mes)
 
 ### Récupération de l'image Docker de ce PoC
-L'image OCI est disponible sur DockerHub : [https://hub.docker.com/repository/docker/fenyoa/mes-haproxy](https://hub.docker.com/repository/docker/fenyoa/mes-haproxy)
+Si vous disposez d'une infrastructure ARM64 (Linux, Mac avec processeur Apple Silicon), vous pouvez directement récupérer l'image OCI qui est disponible sur DockerHub : [https://hub.docker.com/repository/docker/fenyoa/mes-haproxy](https://hub.docker.com/repository/docker/fenyoa/mes-haproxy)
 
 Récupération de l'image :
 ```
@@ -17,6 +17,38 @@ Digest: sha256:b0fbf5aafffecc929b39109202f25ffc9c05f7e593924c3c85419f1b127af922
 Status: Image is up to date for fenyoa/mes-haproxy:latest
 docker.io/fenyoa/mes-haproxy:latest
 ```
+
+Dans le cas contraire, vous pouvez refabriquer l'image comme ceci :
+```
+fenyo@mac docker % make build
+docker build -t mes-haproxy:latest .
+[+] Building 2.0s (11/11) FINISHED                                                                                                                                      docker:desktop-linux
+ => [internal] load build definition from Dockerfile                                                                                                                                    0.0s
+ => => transferring dockerfile: 556B                                                                                                                                                    0.0s
+ => [internal] load metadata for docker.io/library/haproxy:latest                                                                                                                       0.0s
+ => [internal] load .dockerignore                                                                                                                                                       0.0s
+ => => transferring context: 2B                                                                                                                                                         0.0s
+ => [1/5] FROM docker.io/library/haproxy:latest@sha256:08ad1eb12cef6d9084be52c3bf8b81c861c35d39fdd52665f1b350ed0fdb9da3                                                                 1.7s
+ => => resolve docker.io/library/haproxy:latest@sha256:08ad1eb12cef6d9084be52c3bf8b81c861c35d39fdd52665f1b350ed0fdb9da3                                                                 1.7s
+ => [internal] load build context                                                                                                                                                       0.0s
+ => => transferring context: 236B                                                                                                                                                       0.0s
+ => [auth] library/haproxy:pull token for registry-1.docker.io                                                                                                                          0.0s
+ => CACHED [2/5] COPY haproxy-minimal.cfg /usr/local/etc/haproxy/haproxy-minimal.cfg                                                                                                    0.0s
+ => CACHED [3/5] COPY haproxy-qos.cfg.template /usr/local/etc/haproxy/haproxy-qos.cfg.template                                                                                          0.0s
+ => CACHED [4/5] COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh                                                                                                          0.0s
+ => CACHED [5/5] RUN apt-get update &&     apt-get install -y gettext socat &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*                                                     0.0s
+ => exporting to image                                                                                                                                                                  0.0s
+ => => exporting layers                                                                                                                                                                 0.0s
+ => => exporting manifest sha256:f7d2518741340a200c96afc0970d445830953ea432f560041625448e2b80f2b6                                                                                       0.0s
+ => => exporting config sha256:5c3d4d48de2f3e56ac32f937e9e1bdd0bb5d60a301bd74434e100979b4bcda30                                                                                         0.0s
+ => => exporting attestation manifest sha256:f25587a1da5e0b4485a7091e5c2eadd3cf674f1087147d373b4b1edcdf39433d                                                                           0.0s
+ => => exporting manifest list sha256:493b6afd5d8c17e883b6a9e79b93b51d6f61a71b4610d1ccfa1aafe558e747ac                                                                                  0.0s
+ => => naming to docker.io/library/mes-haproxy:latest                                                                                                                                   0.0s
+ => => unpacking to docker.io/library/mes-haproxy:latest                                                                                                                                0.0s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/oogbrcsgutayv0vmaf1e13evf
+```
+
 
 ### Lancer un test de ce PoC
 ## Lancer un serveur web local
