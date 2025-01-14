@@ -14,13 +14,6 @@ if [ "$1" = 'haproxy' ]; then
 	set -- haproxy -W -db "$@"
 fi
 
-exec "$@"
-
-exit 0
-
-#!/bin/bash
-set -e
-
 # Remplacer les variables d'environnement dans le fichier template
 cat /usr/local/etc/haproxy/haproxy-minimal.cfg > /tmp/haproxy.cfg
 envsubst < /usr/local/etc/haproxy/haproxy-qos.cfg.template >> /tmp/haproxy.cfg
@@ -30,14 +23,4 @@ echo -- ------------------------------------------------------------
 cat /tmp/haproxy.cfg
 echo -- ------------------------------------------------------------
 
-# Exécuter l'exécutable HAProxy
-
-#haproxy -f /tmp/haproxy.cfg
-
-#echo FIN
-#exit 0
-
-echo exec "$@"
 exec "$@"
-
-############################################################
