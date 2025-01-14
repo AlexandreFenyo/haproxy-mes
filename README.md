@@ -4,7 +4,7 @@ PoC de QoS sur les requêtes web
 
 La plupart des commandes à lancer pour tester ce PoC nécessitent d'être dans le répertoire haproxy-mes/docker et d'utiliser la commande `make`.
 
-Les sources de ce PoC sont disponibles sur GitHub : [https://hub.docker.com/repository/docker/fenyoa/mes-haproxy](https://github.com/AlexandreFenyo/haproxy-mes)
+Les sources de ce PoC sont disponibles sur GitHub : [https://github.com/AlexandreFenyo/haproxy-mes](https://github.com/AlexandreFenyo/haproxy-mes)
 
 ### Récupération de l'image Docker de ce PoC
 Si vous disposez d'une infrastructure ARM64 (Linux, Mac avec processeur Apple Silicon), vous pouvez directement récupérer l'image OCI qui est disponible sur DockerHub : [https://hub.docker.com/repository/docker/fenyoa/mes-haproxy](https://hub.docker.com/repository/docker/fenyoa/mes-haproxy)
