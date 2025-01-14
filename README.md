@@ -1,7 +1,7 @@
 
 # haproxy-mes
 
-# PoC de QoS sur les requêtes web
+## PoC de QoS sur les requêtes web
 
 La plupart des commandes à lancer pour tester ce PoC nécessitent d'être dans le répertoire haproxy-mes/docker et d'utiliser la commande `make`.
 
