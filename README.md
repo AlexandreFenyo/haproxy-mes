@@ -53,7 +53,7 @@ View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux
 
 ## Lancer un test de ce PoC
 ### Lancer un serveur web local
-Ce serveur local écoute sur le port TCP/8002 et représente le serveur backend vers lequel haproxy renvoie ses requêtes
+Ce serveur local écoute sur le port TCP/8080 et représente le serveur backend vers lequel haproxy renvoie ses requêtes
 ```
 fenyo@mac docker % make run-web    
 docker ps -a --filter "name=mes-web" --format "{{.ID}}" | xargs docker stop
